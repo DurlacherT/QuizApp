@@ -1,6 +1,5 @@
 
 
-
 class Settings {
   constructor() {
     this.quizElement = document.querySelector('.quiz');
@@ -179,7 +178,6 @@ class Question {
 
 
 //----------------------------
-
 
 class Final {
   constructor(count, totalAmount) {
