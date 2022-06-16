@@ -23,7 +23,7 @@
         <div class="count">
           <p class="current">0</p><p style="margin-left:40px"> / </p><p class="total"></p>
         </div>
-        <h3 id="question"></h3>
+        <h3 id="question">Settings</h3>
         <label id="a1" class="container">
           <input type="radio" checked="checked" name="radio">
           <span class="checkmark"></span>
@@ -43,14 +43,14 @@
         <button id="next" class="submit">Submit</button>
       </div>
       <div class="settings">
-        <h3 style="text-align: center;"></h3>
+        <h3 style="text-align: center;">Settings</h3>
         <label for="category">Category</label>
         <select name="category" id="category">
           <option value="11">Film</option>
           <option value="14">Television</option>
         </select>
         <div class="mt30">
-          <label for="difficulty">Difficulty</label>
+          <label class="difficulty">Difficulty</label>
           <label class="container" style="display: inline; margin-left: 30px;">Easy
             <input type="radio" name="radio" id="easy">
             <span class="checkmark" style="margin-top: 2px;"></span>
@@ -69,20 +69,33 @@
           <input name="questions" id="questions" type="text" pattern="[0-9]*" />
         </div>  
         <button id="start" class="submit">Start</button>
+      
+      <br>   
+      <br>
+
+        <form class = logout action="/user" method="post">
+          <div class="input-field">
+              <input type="text" name="username" id="username" placeholder="Enter Username">
+          </div>
+          <div class="input-field">
+              <input type="password" name="password" id="password" placeholder="Enter Password">
+          </div>
+          <input type="submit" value=" LogIn ">
+      </form>  
+      
+      <form class = logout action="/logout" method="get">
+        <input type="submit" value="Logout">
+      </form>
+      
       </div>  
     </div>
+    <div class="mt30">
+  
+    </div>
+
   </main>
 
-  <form action="/user" method="post">
-    <h2>Login</h2>
-    <div class="input-field">
-        <input type="text" name="username" id="username" placeholder="Enter Username">
-    </div>
-    <div class="input-field">
-        <input type="password" name="password" id="password" placeholder="Enter Password">
-    </div>
-    <input type="submit" value="LogIn">
-</form>
+
 
   <script  src="mainquiz.js"></script>
 </body>

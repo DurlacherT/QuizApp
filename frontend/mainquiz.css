@@ -1,9 +1,9 @@
 :root {
-  --primary-color: #5D737E;
+  --primary-color: #272a2b;
   --secondary-color: rgb(255, 255, 255);
-  --tertiary-color: #000000;
-  --quaternary-color: #55505C;
-  --hover-color: #4e616b;
+  --tertiary-color: #d846e2;
+  --quaternary-color: #1f1c22;
+  --hover-color: #1c1e1f;
   --shadow-color:rgba(57, 127, 93, 0.4);
   --font-style: 'Questrial';
 }
@@ -229,3 +229,8 @@ h3 {
   display: block;
 }
 
+
+.logout {
+  text-align: center;
+
+}

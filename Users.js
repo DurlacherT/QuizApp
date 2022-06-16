@@ -1,45 +1,34 @@
 const users = [
 
     {
-  
       id: 1,
-  
-      name: "John",
-  
-      email: "john@gmail.com"
-  
+      name: "thomas",
+      email: "thomas@gmail.com",
+      password: "test"
     },
   
     {
-  
       id: 2,
-  
-      name: "Smith",
-  
-      email: "smith@gmail.com"
-  
+      name: "lisa",
+      email: "lisa@gmail.com",
+      password: "test"
     },
   
     {
-  
       id: 3,
-  
-      name: "Chris",
-  
-      email: "chris@gmail.com"
-  
+      name: "enes",
+      email: "enes@gmail.com",
+      password: "test"
     },
   
     {
-  
       id: 4,
-  
-      name: "Jack",
-  
-      email: "jack@gmail.com"
-  
+      name: "jon",
+      email: "jon@gmail.com",
+      password: "test"
     }
   
   ];
   
-   
+  module.exports = users;
+
