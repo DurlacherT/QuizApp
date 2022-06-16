@@ -1,6 +1,82 @@
 
+class ElementCreator {
+  constructor(tag) {
+      this.element = document.createElement(tag);
+  }
+
+  id(id) {
+      this.element.id = id;
+      return this;
+  }
+
+  class(clazz) {
+      this.element.class = clazz;
+      return this;
+  }
+
+  text(content) {
+      this.element.innerHTML = content;
+      return this;
+  }
+
+  with(name, value) {
+      this.element.setAttribute(name, value)
+      return this;
+  }
+
+  listener(name, listener) {
+      this.element.addEventListener(name, listener)
+      return this;
+  }
+
+  append(child) {
+      child.appendTo(this.element);
+      return this;
+  }
+
+  prependTo(parent) {
+      parent.prepend(this.element);
+      return this.element;
+  }
+
+  appendTo(parent) {
+      parent.append(this.element);
+      return this.element;
+  }
+
+  insertBefore(parent, sibling) {
+      parent.insertBefore(this.element, sibling);
+      return this.element;
+  }
+}
 
 class Settings {
+
+  async fetchUsers() {
+    try {
+  
+      const url = `http://localhost:8000/api/users/`;
+  
+      let data = await this.fetchData(url);
+
+let selectCreator = new ElementCreator("select");
+      for (let i = 0; i < data.length; i++) {
+        console.log(data[i])
+        //document.querySelector('users').appendChild(data[i].json());
+
+
+       selectCreator.append(new ElementCreator("option").with("value", i).text(data[i]))
+        
+       }
+
+  
+    } catch (error) {
+      alert(error);
+    }
+  }
+  
+
+
   constructor() {
     this.quizElement = document.querySelector('.quiz');
     this.settingsElement = document.querySelector('.settings');
@@ -16,6 +92,7 @@ class Settings {
     this.quiz = { };
 
     this.startButton.addEventListener('click', this.startQuiz.bind(this));
+    this.fetchUsers();
   }
 
   async startQuiz() {
@@ -29,6 +106,8 @@ class Settings {
       let data = await this.fetchData(url);
       this.toggleVisibility();
       this.quiz = new Quiz(this.quizElement, amount, data.results);
+ 
+
     } catch (error) {
       alert(error);
     }
@@ -180,6 +259,12 @@ class Question {
 //----------------------------
 
 class Final {
+
+
+
+
+
+
   constructor(count, totalAmount) {
     this.scoreElement = document.querySelector('.score');
     this.againButton = document.querySelector('#again');
@@ -191,11 +276,21 @@ class Final {
   render(count, totalAmount) {
     this.scoreElement.innerHTML = `You answered ${count} out of ${totalAmount} correct!`;
   }
+
+
+
+
+
+
 }
 
 
 
+
 //----------------------------
+
+//document.addEventListener("DOMContentLoaded", function (event) {
+
 
 
 new Settings();

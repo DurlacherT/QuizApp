@@ -8,6 +8,36 @@
   --font-style: 'Questrial';
 }
 
+
+@media  screen and (max-width: 400px) {
+  :root {
+    --primary-color: #272a2b;
+    --secondary-color: rgb(255, 255, 255);
+    --tertiary-color: #46e256;
+    --quaternary-color: #1f1c22;
+    --hover-color: #1c1e1f;
+    --shadow-color:rgba(57, 127, 93, 0.4);
+    --font-style: 'Questrial';
+  }
+  
+}
+
+
+@media  screen and (max-width: 400px) {
+  body {
+    font-family: TimesNewRoman;
+    background-color: var(--secondary-color);
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    color: rgb(255, 255, 255);
+  
+  }
+}
+
+
+
 body {
   font-family: TimesNewRoman;
   background-color: var(--secondary-color);

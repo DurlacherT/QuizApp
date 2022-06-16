@@ -7,7 +7,7 @@ const path = require('path');
 const cookieParser = require("cookie-parser");
 const jwt = require('jsonwebtoken');
 const router = require('./routes/api/users');
-let users = require("./Users");
+let users = require("./userdata");
 
 
 app.use(express.json());
@@ -15,8 +15,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use("/api/users", require("./routes/api/users")); //importes user routes
-
-
 
 
 
@@ -44,7 +42,6 @@ var session;
 app.post('/user',(req,res) => {
   for (let i = 0; i < users.length; i++) {
      mypassword = true;
-     console.log(users[i].email === req.body.username && users[i].password === req.body.password);
     }
   if(mypassword){
     session=req.session;
@@ -54,10 +51,8 @@ app.post('/user',(req,res) => {
       console.log(req.body.username);
   }
   else{
-      console.log("Wrong username!");
-      
+      console.log("Wrong username or password!");
   }
-
 })
 
 
@@ -76,3 +71,7 @@ app.listen(port, (error) => {
       console.log(`Server listening at http://localhost:${port}`)
   }
 });
+
+
+
+module.exports = session;

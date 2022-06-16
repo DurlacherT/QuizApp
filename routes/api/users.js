@@ -1,12 +1,12 @@
 const express = require("express");
 const router = express.Router();
-let users = require("../../Users");
+let users = require("../../userdata");
+let session = require("../../index");
 
 
 router.get("/", (req, res) => {
   res.json(users);
 });
-
 
 
 router.get("/:id", (req, res) => {
