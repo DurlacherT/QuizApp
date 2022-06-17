@@ -52,28 +52,7 @@ class ElementCreator {
 
 class Settings {
 
-  async fetchUsers() {
-    try {
   
-      const url = `http://localhost:8000/api/users/`;
-  
-      let data = await this.fetchData(url);
-
-let selectCreator = new ElementCreator("select");
-      for (let i = 0; i < data.length; i++) {
-        console.log(data[i])
-        //document.querySelector('users').appendChild(data[i].json());
-
-
-       selectCreator.append(new ElementCreator("option").with("value", i).text(data[i]))
-        
-       }
-
-  
-    } catch (error) {
-      alert(error);
-    }
-  }
   
 
 
@@ -92,7 +71,6 @@ let selectCreator = new ElementCreator("select");
     this.quiz = { };
 
     this.startButton.addEventListener('click', this.startQuiz.bind(this));
-    this.fetchUsers();
   }
 
   async startQuiz() {
@@ -222,6 +200,7 @@ class Question {
       document.querySelector('#a4'),
     ];
 
+
     this.correctAnswer = question.correct_answer;
     this.question = question.question;
     this.isCorrect = false;
@@ -271,6 +250,8 @@ class Final {
 
     this.render(count, totalAmount);
     this.againButton.addEventListener('click', location.reload.bind(location));
+    this.fetchUsers();
+
   }
 
   render(count, totalAmount) {
@@ -279,7 +260,40 @@ class Final {
 
 
 
+  async fetchUsers() {
+    try {
+  
+      const url = `http://localhost:8000/api/users/`;
+  
+      let data = await this.fetchData(url);
 
+
+       const box = document.getElementById('userdata');
+       box.appendChild(document.createElement("br"));
+
+      for (let i = 0; i < data.length; i++) {        
+        const nametext = document.createTextNode(JSON.stringify(data[i].name).replace(/"([^"]+)":/g, '$1:'));
+        const scoretext = document.createTextNode(JSON.stringify(data[i].score).replace(/"([^"]+)":/g, '$1:'));
+        const questiontext = document.createTextNode(JSON.stringify(data[i].question).replace(/"([^"]+)":/g, '$1:'));
+
+        box.appendChild(document.createElement("br"));
+        box.appendChild(nametext);
+        box.appendChild(scoretext);
+        box.appendChild(questiontext);
+        box.appendChild(document.createElement("br"));
+       }
+    } catch (error) {
+      alert(error);
+    }
+  }
+
+
+  async fetchData(url) {
+    const response = await fetch(url);
+    const result = await response.json();
+
+    return result;
+  }
 
 
 }
