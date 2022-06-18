@@ -34,8 +34,8 @@ app.post('/user',(req,res) => {
   if(mypassword){
     session=req.session;
       session.userid=req.body.username;
-      //console.log(req.session);
-     // console.log(req.session.userid)
+      console.log(req.session);
+      //console.log(req.session.userid)
       res.sendFile('frontend/index.html',{root:__dirname});
   }
   else{
@@ -43,12 +43,12 @@ app.post('/user',(req,res) => {
   }
 })
 
-
+/*
 app.put('/test',(req,res) => {
       console.log(req.session);
       console.log(req.session.userid)
      // res.sendFile('frontend/index.html',{root:__dirname});
-})
+})*/
 
 app.get('/logout',(req,res) => {
   req.session.destroy();
