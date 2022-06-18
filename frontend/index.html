@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,20 +8,28 @@
   <link rel="stylesheet" href="mainquiz.css">
   <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
 </head>
+
 <body>
+
   <main>
+
     <div class="header">
-      <h2>Movie Quiz</h2>
+      <h2>Movie Quiz Master</h2>
     </div>
+
     <div class="main">
       <div class="final">
         <h3>You answered all of the questions!</h3>
         <p>Score: </p><p class="score"></p>
-        <h4 id="userdata">Scoreboard</h4>
+        <p>Scoreboard:</p>
+        <div id="userdata" class = "userdata"></div>
         <h4>Want to try it again?</h4>
-
-        <button id="again" class="submit">Again</button>
+        <form class = scoreboardupdate action="/test" method="put">
+          <button id="again" class="submit">Again</button>
+        </form>
+        
       </div>
+
       <div class="quiz">
         <div class="count">
           <p class="current">0</p><p style="margin-left:40px"> / </p><p class="total"></p>
@@ -44,6 +53,7 @@
         </label>
         <button id="next" class="submit">Submit</button>
       </div>
+
       <div class="settings">
         <h3 style="text-align: center;">Settings</h3>
         <label for="category">Category</label>
@@ -66,18 +76,16 @@
             <span class="checkmark" style="margin-top: 2px;"></span>
           </label>
         </div>
-        <div id="nav ul">
+        <div id="navul">
       </div>
 
-        <div class="mt30">
-          <label for="questions">Number of questions</label>
-          <input name="questions" id="questions" type="text" pattern="[0-9]*" />
-        </div>  
+      <div class="mt30">
+        <label for="questions">Number of questions</label>
+        <input name="questions" id="questions" type="text" pattern="[0-9]*" />
+      </div>  
         <button id="start" class="submit">Start</button>
-      
       <br>   
       <br>
-
         <form class = logout action="/user" method="post">
           <div class="input-field">
               <input type="text" name="username" id="username" placeholder="Enter Username">
@@ -87,20 +95,16 @@
           </div>
           <input type="submit" value=" LogIn ">
       </form>  
-      
       <form class = logout action="/logout" method="get">
         <input type="submit" value="Logout">
       </form>
-      
-      </div>  
-    </div>
-    <div id="box">
+      </div> 
+
     </div>
 
   </main>
 
-
-
   <script  src="mainquiz.js"></script>
+
 </body>
 </html>
