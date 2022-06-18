@@ -2,38 +2,38 @@ const users = [
 
     {
       id: 1,
-      name: "thomas",
+      name: "Thomas",
       email: "thomas@gmail.com",
       password: "test",
-      score: 3,
+      score: 10,
       question: 12
     },
   
     {
       id: 2,
-      name: "lisa",
+      name: "Lisa",
       email: "lisa@gmail.com",
       password: "test",
       score: 3,
-      question: 12
+      question: 4
     },
   
     {
       id: 3,
-      name: "enes",
+      name: "Enes",
       email: "enes@gmail.com",
       password: "test",
-      score: 3,
-      question: 12
+      score: 4,
+      question: 4
     },
   
     {
       id: 4,
-      name: "jon",
+      name: "Jon",
       email: "jon@gmail.com",
       password: "test",
-      score: 3,
-      question: 12
+      score: 0,
+      question: 5
     }
   
   ];

@@ -1,61 +1,6 @@
-
-class ElementCreator {
-  constructor(tag) {
-      this.element = document.createElement(tag);
-  }
-
-  id(id) {
-      this.element.id = id;
-      return this;
-  }
-
-  class(clazz) {
-      this.element.class = clazz;
-      return this;
-  }
-
-  text(content) {
-      this.element.innerHTML = content;
-      return this;
-  }
-
-  with(name, value) {
-      this.element.setAttribute(name, value)
-      return this;
-  }
-
-  listener(name, listener) {
-      this.element.addEventListener(name, listener)
-      return this;
-  }
-
-  append(child) {
-      child.appendTo(this.element);
-      return this;
-  }
-
-  prependTo(parent) {
-      parent.prepend(this.element);
-      return this.element;
-  }
-
-  appendTo(parent) {
-      parent.append(this.element);
-      return this.element;
-  }
-
-  insertBefore(parent, sibling) {
-      parent.insertBefore(this.element, sibling);
-      return this.element;
-  }
-}
-
 class Settings {
 
   
-  
-
-
   constructor() {
     this.quizElement = document.querySelector('.quiz');
     this.settingsElement = document.querySelector('.settings');
@@ -72,6 +17,8 @@ class Settings {
 
     this.startButton.addEventListener('click', this.startQuiz.bind(this));
   }
+
+   
 
   async startQuiz() {
     try {
@@ -240,24 +187,24 @@ class Question {
 class Final {
 
 
-
-
-
-
   constructor(count, totalAmount) {
     this.scoreElement = document.querySelector('.score');
+    this.userdataElement = document.querySelector('.userdata')
     this.againButton = document.querySelector('#again');
 
     this.render(count, totalAmount);
     this.againButton.addEventListener('click', location.reload.bind(location));
     this.fetchUsers();
-
   }
 
   render(count, totalAmount) {
     this.scoreElement.innerHTML = `You answered ${count} out of ${totalAmount} correct!`;
   }
 
+  renderScoreboard(name, questions, score) {
+    this.userdataElement.appendChild(document.createTextNode(`${name} answered ${questions} out of ${score} questions correct!`));
+    this.userdataElement.appendChild(document.createElement("br"));
+}
 
 
   async fetchUsers() {
@@ -267,20 +214,8 @@ class Final {
   
       let data = await this.fetchData(url);
 
-
-       const box = document.getElementById('userdata');
-       box.appendChild(document.createElement("br"));
-
       for (let i = 0; i < data.length; i++) {        
-        const nametext = document.createTextNode(JSON.stringify(data[i].name).replace(/"([^"]+)":/g, '$1:'));
-        const scoretext = document.createTextNode(JSON.stringify(data[i].score).replace(/"([^"]+)":/g, '$1:'));
-        const questiontext = document.createTextNode(JSON.stringify(data[i].question).replace(/"([^"]+)":/g, '$1:'));
-
-        box.appendChild(document.createElement("br"));
-        box.appendChild(nametext);
-        box.appendChild(scoretext);
-        box.appendChild(questiontext);
-        box.appendChild(document.createElement("br"));
+        this.renderScoreboard(JSON.stringify(data[i].name).replace(/"([^"]+)":/g, '$1:'), JSON.stringify(data[i].score).replace(/"([^"]+)":/g, '$1:'), JSON.stringify(data[i].question).replace(/"([^"]+)":/g, '$1:'));
        }
     } catch (error) {
       alert(error);

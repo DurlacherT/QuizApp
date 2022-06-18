@@ -4,11 +4,12 @@ let users = require("../../userdata");
 let session = require("../../index");
 
 
+//Get all users
 router.get("/", (req, res) => {
   res.json(users);
 });
 
-
+//Get user with user ID
 router.get("/:id", (req, res) => {
 
   const found = users.some(user => user.id === parseInt(req.params.id));
@@ -20,13 +21,16 @@ router.get("/:id", (req, res) => {
   }
 });
  
-
+//Create new user
 router.post("/", (req, res) => {
 
   const newUser = {
     id: req.body.id,
     name: req.body.name,
-    email: req.body.email
+    email: req.body.email,
+    password: req.body.password,
+    score: req.body.score,
+    question: req.body.question
   };
 
   if (!newUser.name || !newUser.email) {
@@ -39,7 +43,6 @@ router.post("/", (req, res) => {
 
 
 //Update User
-
 router.put("/:id", (req, res) => {
 
   const found = users.some(user => user.id === parseInt(req.params.id));
@@ -52,9 +55,12 @@ router.put("/:id", (req, res) => {
       if (user.id === parseInt(req.params.id)) {
         user.name = updateUser.name ? updateUser.name : user.name;
         user.email = updateUser.email ? updateUser.email : user.email;
+        user.password = updateUser.password ? updateUser.password : user.password;
+        user.score = updateUser.score ? updateUser.score : user.score;
+        user.question = updateUser.question ? updateUser.question : user.question;
         res.json({ msg: "User updated", user });
+        console.log(req.session);
       }
-
     });
   } else {
     res.sendStatus(400);
@@ -64,7 +70,6 @@ router.put("/:id", (req, res) => {
 
 
 //Delete User
-
 router.delete("/:id", (req, res) => {
 
   const found = users.some(user => user.id === parseInt(req.params.id));
@@ -80,8 +85,6 @@ router.delete("/:id", (req, res) => {
     res.sendStatus(400);
   }
 });
-
-
 
 
 
