@@ -238,8 +238,6 @@ class Final {
 
 //----------------------------
 
-//document.addEventListener("DOMContentLoaded", function (event) {
-
 
 
 new Settings();
