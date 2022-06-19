@@ -188,7 +188,6 @@ class Question {
 
 
 
-
 function eventHandler(count, totalAmount, userid) {
 
   const url = `http://localhost:8000/api/users/${userid}`;
@@ -256,9 +255,6 @@ class Final {
 
 
 }
-
-
-
 
 //----------------------------
 

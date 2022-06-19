@@ -5,8 +5,8 @@ const users = [
       name: "Thomas",
       email: "thomas@gmail.com",
       password: "test",
-      score: 10,
-      question: 21
+      score: 0,
+      question: 0
     },
   
     {
@@ -35,7 +35,6 @@ const users = [
       score: 0,
       question: 5
     }
-  
   ];
   
   module.exports = users;
