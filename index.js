@@ -35,6 +35,8 @@ app.post('/:username',(req,res) => {
     session=req.session;
       session.userid=req.body.username;
       console.log(req.session);
+      console.log(req.session.id);
+
       res.sendFile('frontend/index.html',{root:__dirname});
   }
   else{
