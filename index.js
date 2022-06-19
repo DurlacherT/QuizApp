@@ -25,8 +25,8 @@ app.use(sessions({
 }));
 
 
-app.post('/user',(req,res) => {
-  let mypassword = false;
+app.post('/:username',(req,res) => {
+  let mypassword;
   for (let i = 0; i < users.length; i++) {
     if(users[i].email === req.body.username && users[i].password === req.body.password)
      {mypassword = true;}
@@ -35,7 +35,6 @@ app.post('/user',(req,res) => {
     session=req.session;
       session.userid=req.body.username;
       console.log(req.session);
-      //console.log(req.session.userid)
       res.sendFile('frontend/index.html',{root:__dirname});
   }
   else{
@@ -43,16 +42,12 @@ app.post('/user',(req,res) => {
   }
 })
 
-/*
-app.put('/test',(req,res) => {
-      console.log(req.session);
-      console.log(req.session.userid)
-     // res.sendFile('frontend/index.html',{root:__dirname});
-})*/
+
 
 app.get('/logout',(req,res) => {
   req.session.destroy();
   res.redirect('/');
+  console.log("Session ended");
 });
 
 
