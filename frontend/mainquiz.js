@@ -2,6 +2,8 @@ class Settings {
 
   
   constructor() {
+    console.log(document.location.href);
+    console.log(document.cookie);
     this.quizElement = document.querySelector('.quiz');
     this.settingsElement = document.querySelector('.settings');
     this.category = document.querySelector('#category');
@@ -16,6 +18,10 @@ class Settings {
     this.quiz = { };
 
     this.startButton.addEventListener('click', this.startQuiz.bind(this));
+
+
+    //this.loginButton = document.querySelector('#username');
+    //this.startButton.addEventListener('click', alert("tststset"));
   }
 
    
@@ -182,18 +188,34 @@ class Question {
 
 
 
+
+function eventHandler(count, totalAmount, userid) {
+
+  const url = `http://localhost:8000/api/users/${userid}`;
+  this.fetch(url,{
+    method:'PUT',
+    headers:{
+    'Content-Type':'application/json'
+    },
+    body:JSON.stringify({  
+    score: count,
+    question: totalAmount})})
+ }
+
 //----------------------------
 
 class Final {
-
+  
 
   constructor(count, totalAmount) {
+    let userid = 1;
     this.scoreElement = document.querySelector('.score');
     this.userdataElement = document.querySelector('.userdata')
     this.againButton = document.querySelector('#again');
 
     this.render(count, totalAmount);
     this.againButton.addEventListener('click', location.reload.bind(location));
+    this.againButton.addEventListener('click', eventHandler(count, totalAmount, userid));
     this.fetchUsers();
   }
 
@@ -205,6 +227,8 @@ class Final {
     this.userdataElement.appendChild(document.createTextNode(`${name} answered ${questions} out of ${score} questions correct!`));
     this.userdataElement.appendChild(document.createElement("br"));
 }
+
+
 
 
   async fetchUsers() {
