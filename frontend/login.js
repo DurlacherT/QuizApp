@@ -1,6 +1,4 @@
-
-  
-    // Make an HTTP PUT Request
+// Make an HTTP DELETE request
 function deleteUser() {
     const deleteUser = {
         name: document.getElementById("username").value,
@@ -11,16 +9,11 @@ function deleteUser() {
                 'Content-type': 'application/json'
             },
             body: JSON.stringify(deleteUser),
-
         });
-  
-        // Awaiting for the resource to be deleted
         console.log("1 record deleted");
-
-        // Return response data 
     }
 
-
+    // Make an HTTP PUT request
     function updateUser() {
         const updateUser = {
             name: document.getElementById("username").value,
@@ -41,6 +34,7 @@ function deleteUser() {
         // Return response data 
     }
 
+    // Make an HTTP POST request
     function loginUser() {
         const newUser = {
             name: document.getElementById("username").value,
@@ -63,7 +57,7 @@ function deleteUser() {
 }); 
     }
 
-    //Use POST to send user data to api
+    // Make an HTTP POST request
     function createUser() {
         const newUser = {
             name: document.getElementById("username").value,
@@ -86,9 +80,7 @@ function deleteUser() {
         }); 
     }
 
-
-    
-    //Use POST to send user data to api
+    // Make an HTTP GET request
     function logoutUser() {
 
         fetch('http://localhost:8000/api/users/logout', {
