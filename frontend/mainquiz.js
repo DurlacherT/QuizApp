@@ -1,8 +1,10 @@
 
 
+import currentUser from './login.js'
+
+
 class Settings {
 
-  
   constructor() {
     console.log(document.location.href);
     console.log(document.cookie);
@@ -213,7 +215,6 @@ class Final {
     this.userdataElement = document.querySelector('.userdata')
     this.againButton = document.querySelector('#again');
   
-    let name = 'tim';
 
 
 
@@ -221,7 +222,7 @@ class Final {
     this.againButton.addEventListener('click', location.reload.bind(location));
     //this.againButton.addEventListener('click', eventHandler(count, totalAmount, userid));
     this.fetchUsers();
-    this.fetchUserScore(name, count, totalAmount);
+    this.fetchUserScore(count, totalAmount);
 
   }
    
@@ -241,7 +242,7 @@ class Final {
 
 
 
-async fetchUserScore(name,score, question ) {
+async fetchUserScore(score, question ) {
   try {
 
     const url = `http://localhost:8000/api/users/`;
@@ -251,7 +252,7 @@ async fetchUserScore(name,score, question ) {
 
     for (let i = 0; i < data.length; i++) {    
       
-      if(data[i].username == 'tim'){
+      if(data[i].username == currentUser){
 
 
 const updateUser = {
@@ -261,7 +262,7 @@ const updateUser = {
     };
     console.log(updateUser);
   
-  fetch('http://localhost:8000/api/users/scoreupdate/tim', {
+  fetch('http://localhost:8000/api/users/scoreupdate/${currentUser}', {
       method: 'PUT',
       headers: {
           'Content-type': 'application/json'

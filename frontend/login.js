@@ -1,3 +1,7 @@
+const currentUser = 'Anonymous'
+
+
+
 // Make a HTTP DELETE request
 function deleteUser() {
     const deleteUser = {
@@ -37,6 +41,8 @@ function deleteUser() {
             email: document.getElementById("email").value,
             password: document.getElementById("password").value,
           };
+
+          currentUser = document.getElementById("username").value;
         const response = fetch('http://localhost:8000/api/users/authenticate', {
             method: 'POST',
             headers: {
@@ -93,3 +99,7 @@ function deleteUser() {
                 console.error('Error:', error);
         }); 
     }
+
+
+
+    //export default  currentUser;
