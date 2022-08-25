@@ -1,50 +1,32 @@
 const express = require("express");
 const router = express.Router();
 let users = require("../../userdata");
-let session = require("../../index");
+var session;
 
+var mysql = require('mysql');
 
-//Get all users
-router.get("/", (req, res) => {
-  res.json(users);
+var con = mysql.createConnection({
+  host: "localhost",
+  user: "thomas",
+  password: "qw56km246",
+  database : "nodelogin"
 });
 
-//Get user with user ID
-router.get("/:id", (req, res) => {
-
-  const found = users.some(user => user.id === parseInt(req.params.id));
-  
-  if (found) {
-    res.json(users.filter(user => user.id === parseInt(req.params.id)));
-  } else {
-    res.sendStatus(400);
-  }
-});
- 
-//Create new user
+//Create new user --->
 router.post("/", (req, res) => {
-
-  const newUser = {
-    id: req.body.id,
-    name: req.body.name,
-    email: req.body.email,
-    password: req.body.password,
-    score: req.body.score,
-    question: req.body.question
-  };
-
-  if (!newUser.name || !newUser.email) {
-    return res.sendStatus(400);
-  }
-
-  users.push(newUser);
-  res.json(users);
+  var sql = "INSERT INTO accounts (username, password, email) VALUES ('" + req.body.name + "', '" + req.body.password + "', '" + req.body.email + "')";
+  con.query(sql, function (err, result) {
+    if (err) throw err;
+    console.log("1 record inserted");
+  });
 });
-
 
 //Update User
-router.put("/:id", (req, res) => {
+router.put("/:name", (req, res) => {
 
+  var sql = "UPDATE accounts SET email = '" + req.body.email + "', password = '" + req.body.password + "' WHERE username ='" + req.body.name + "'";
+  con.query(sql, function (err, result) {
+/*
   const found = users.some(user => user.id === parseInt(req.params.id));
 
   if (found) {
@@ -64,18 +46,20 @@ router.put("/:id", (req, res) => {
     });
   } else {
     res.sendStatus(400);
-  }
-
+  }*/
+  })
 });
 
+//Delete User --->
+router.delete("/:name", (req, res) => {
+  console.log(req.body.name);
 
-//Delete User
-router.delete("/:id", (req, res) => {
+  var sql = "DELETE FROM accounts WHERE username ='" + req.body.name + "'";
+  con.query(sql, function (err, result) {
+    if (err) throw err;
 
-  const found = users.some(user => user.id === parseInt(req.params.id));
-
-  if (found) {
-    users = users.filter(user => user.id !== parseInt(req.params.id))
+  if (true) {
+    users = users.filter(user => user.name !== req.params.name)
     res.json({
       msg: "User deleted",
       users
@@ -84,6 +68,66 @@ router.delete("/:id", (req, res) => {
   } else {
     res.sendStatus(400);
   }
+
+  })
+
+/*
+ var sql = "SELECT * FROM accounts";
+  con.query(sql, function (err, result) {
+    if (err) throw err;
+    let mypassword;
+    mypassword = false;
+    for (let i = 0; i < result.length; i++) {
+      if(result[i].email === req.body.email && result[i].password === req.body.password)
+       {mypassword = true;}
+      }
+    if(mypassword){
+      session=req.session;
+        session.userid=req.body.username;
+        console.log(req.session);
+        console.log(req.session.id);
+        console.log("Logged in");
+        //res.sendFile('frontend/index.html',{root:__dirname});
+    }
+    else{
+        console.log("Wrong username or password!");
+    }
+  });*/
+ })
+
+//Authenticate user --->
+router.post('/authenticate',(req,res) => {
+  var sql = "SELECT * FROM accounts";
+  con.query(sql, function (err, result) {
+    if (err) throw err;
+    let mypassword;
+    mypassword = false;
+    for (let i = 0; i < result.length; i++) {
+      if(result[i].email === req.body.email && result[i].password === req.body.password)
+       {mypassword = true;}
+      }
+    if(mypassword){
+      session=req.session;
+        session.userid=req.body.username;
+        console.log(req.session);
+        console.log(req.session.id);
+        console.log("Logged in");
+        //res.sendFile('frontend/index.html',{root:__dirname});
+    }
+    else{
+        console.log("Wrong username or password!");
+    }
+  });
+ })
+ 
+router.get("/logout",(req,res) => {
+  console.log(session);
+
+  req.session.destroy();
+  console.log("Logged out!");
+  console.log(session);
+
+  res.redirect('/');
 });
 
 module.exports = router;
