@@ -1,6 +1,6 @@
 
 
-import currentUser from './login.js'
+//import currentUser from './login.js'
 
 
 class Settings {
