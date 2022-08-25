@@ -2,17 +2,10 @@ var mysql = require('mysql');
 
 var con = mysql.createConnection({
   host: "localhost",
-  user: "root",
+  user: "thomas",
   password: "qw56km246",
-  database: "nodelogin"
+  database : "nodelogin"
 });
-
-con.connect(function(err) {
-  if (err) throw err;
-  console.log("Connected!");
-  
-});
-
 
 
 module.exports = con;

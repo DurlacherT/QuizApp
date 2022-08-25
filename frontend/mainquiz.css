@@ -1,13 +1,12 @@
 :root {
-  --primary-color: darkred;
+  --primary-color: #00b9f7;
   --secondary-color: rgb(255, 255, 255);
-  --tertiary-color: gray;
+  --tertiary-color: #c1c6c8;
   --quaternary-color: #1f1c22;
   --hover-color: #1c1e1f;
   --shadow-color:silver;
   --font-style: 'Questrial';
 }
-
 
 @media  screen and (max-width: 400px) {
   :root {

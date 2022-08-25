@@ -2,19 +2,19 @@ const express = require("express");
 const router = express.Router();
 let users = require("../../userdata");
 var session;
+let con = require("../../mysqlconnection");
 
-var mysql = require('mysql');
 
-var con = mysql.createConnection({
-  host: "localhost",
-  user: "thomas",
-  password: "qw56km246",
-  database : "nodelogin"
+router.get("/", (req, res) => {
+  var sql = "SELECT * FROM accounts";
+  con.query(sql, function (err, result) {
+    if (err) throw err;
+    res.json(result);})
 });
 
 //Create new user --->
 router.post("/", (req, res) => {
-  var sql = "INSERT INTO accounts (username, password, email) VALUES ('" + req.body.name + "', '" + req.body.password + "', '" + req.body.email + "')";
+  var sql = "INSERT INTO accounts (username, password, email, question, score) VALUES ('" + req.body.name + "', '" + req.body.password + "', '" + req.body.email + "', '" + 0 + "' , '" + 0 + "')";
   con.query(sql, function (err, result) {
     if (err) throw err;
     console.log("1 record inserted");
@@ -23,7 +23,6 @@ router.post("/", (req, res) => {
 
 //Update User
 router.put("/:name", (req, res) => {
-
   var sql = "UPDATE accounts SET email = '" + req.body.email + "', password = '" + req.body.password + "' WHERE username ='" + req.body.name + "'";
   con.query(sql, function (err, result) {
 /*
@@ -47,6 +46,18 @@ router.put("/:name", (req, res) => {
   } else {
     res.sendStatus(400);
   }*/
+  })
+});
+
+//Update User
+router.put("/scoreupdate/:name", (req, res) => {
+  console.log(req);
+
+  console.log(req.body.question);
+
+  var sql = "UPDATE accounts SET score = '" + req.body.score + "', question = '" + req.body.question + "' WHERE username ='" + req.body.name + "'";
+  con.query(sql, function (err, result) {
+
   })
 });
 

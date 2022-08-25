@@ -1,3 +1,5 @@
+
+
 class Settings {
 
   
@@ -187,7 +189,7 @@ class Question {
 }
 
 
-
+/*
 function eventHandler(count, totalAmount, userid) {
 
   const url = `http://localhost:8000/api/users/${userid}`;
@@ -200,23 +202,33 @@ function eventHandler(count, totalAmount, userid) {
     score: count,
     question: totalAmount})})
  }
-
+*/
 //----------------------------
 
 class Final {
   
-
   constructor(count, totalAmount) {
     let userid = 1;
     this.scoreElement = document.querySelector('.score');
     this.userdataElement = document.querySelector('.userdata')
     this.againButton = document.querySelector('#again');
+  
+    let name = 'tim';
+
+
 
     this.render(count, totalAmount);
     this.againButton.addEventListener('click', location.reload.bind(location));
-    this.againButton.addEventListener('click', eventHandler(count, totalAmount, userid));
+    //this.againButton.addEventListener('click', eventHandler(count, totalAmount, userid));
     this.fetchUsers();
+    this.fetchUserScore(name, count, totalAmount);
+
   }
+   
+
+
+
+  
 
   render(count, totalAmount) {
     this.scoreElement.innerHTML = `You answered ${count} out of ${totalAmount} correct!`;
@@ -229,6 +241,47 @@ class Final {
 
 
 
+async fetchUserScore(name,score, question ) {
+  try {
+
+    const url = `http://localhost:8000/api/users/`;
+
+    let data = await this.fetchData(url);
+    console.log(data);
+
+    for (let i = 0; i < data.length; i++) {    
+      
+      if(data[i].username == 'tim'){
+
+
+const updateUser = {
+      name: data[i].username,
+      question: parseInt(question) + parseInt(data[i].question),
+      score: parseInt(score) + parseInt(data[i].score),
+    };
+    console.log(updateUser);
+  
+  fetch('http://localhost:8000/api/users/scoreupdate/tim', {
+      method: 'PUT',
+      headers: {
+          'Content-type': 'application/json'
+      },
+      body: JSON.stringify(updateUser),
+  });
+
+      } else {
+        //alert('no user');
+      }
+     }
+
+ 
+  
+   
+  } catch (error) {
+    alert(error);
+  }
+}
+
 
   async fetchUsers() {
     try {
@@ -236,10 +289,11 @@ class Final {
       const url = `http://localhost:8000/api/users/`;
   
       let data = await this.fetchData(url);
-
+      console.log(data);
       for (let i = 0; i < data.length; i++) {        
-        this.renderScoreboard(JSON.stringify(data[i].name).replace(/"([^"]+)":/g, '$1:'), JSON.stringify(data[i].score).replace(/"([^"]+)":/g, '$1:'), JSON.stringify(data[i].question).replace(/"([^"]+)":/g, '$1:'));
-       }
+        this.renderScoreboard(JSON.stringify(data[i].username), JSON.stringify(data[i].score), JSON.stringify(data[i].question));
+       } //        this.renderScoreboard(JSON.stringify(data[i].name).replace(/"([^"]+)":/g, '$1:'), JSON.stringify(data[i].score).replace(/"([^"]+)":/g, '$1:'), JSON.stringify(data[i].question).replace(/"([^"]+)":/g, '$1:'));
+
     } catch (error) {
       alert(error);
     }
