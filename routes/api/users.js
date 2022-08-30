@@ -1,12 +1,14 @@
 /**
- * users.js consists routes that provid data from the server to the client/web browser
- * The routes are exported to index.js
+ * users.js consists of routes that provide data of the server to the client/web browser
+ * The routes are exported to index.js. We use get, put, post and delete route methods.
+ * users.js also requires the express-session module which is used for session management
  */
 
+
+//use express-session for session management
 const express = require("express");
 const router = express.Router();
 let con = require("../../mysqlconnection");
-//const session = require("../../index.js");
 
 const sessions = require('express-session');
 router.use(sessions({
@@ -34,14 +36,14 @@ router.post("/", (req, res) => {
   });
 });
 
-//Update User
+//Update User --->
 router.put("/:name", (req, res) => {
   var sql = "UPDATE accounts SET email = '" + req.body.email + "', password = '" + req.body.password + "' WHERE username ='" + req.body.name + "'";
   con.query(sql, function (err, result) {
   })
 });
 
-//Update User
+//Update User --->
 router.put('/', (req, res) => {
   console.log("test");
 
@@ -61,10 +63,6 @@ router.delete("/:name", (req, res) => {
   var sql = "DELETE FROM accounts WHERE username ='" + req.body.name + "'";
   con.query(sql, function (err, result) {
     if (err) throw err;
-
-
-
-  
   })
  })
 
@@ -98,7 +96,7 @@ router.post('/authenticate',(req,res) => {
   });
  })
  
- 
+ //Logout user --->
 router.post('/logout',(req,res) => {
   var sql = "UPDATE accounts set sessionkey = NULL WHERE username ='" + req.body.name + "'";
   con.query(sql, function (err, result) {
@@ -118,7 +116,7 @@ router.post('/logout',(req,res) => {
 
 
 
-
+//Get the current user user --->
 router.get('/currentuser', (req, res) => {
   console.log(session);
   var sql = "SELECT * FROM accounts WHERE username ='" + session.userid + "'";
