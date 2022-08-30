@@ -1,8 +1,10 @@
-const currentUser = 'Anonymous'
+/**
+ * login.js declares functions which make DELETE, PUT, POST requests (GET is used in mainquiz.js)
+ * The functions are called in login.html
+ */
 
-
-
-// Make a HTTP DELETE request
+var currentUser = 'Anonymous'
+// Function to make a HTTP DELETE request
 function deleteUser() {
     const deleteUser = {
         name: document.getElementById("username").value,
@@ -15,16 +17,18 @@ function deleteUser() {
             body: JSON.stringify(deleteUser),
         });
         console.log("1 record deleted");
+        alert( `User ${deleteUser.name} deleted.`);
+
     }
 
-    // Make a HTTP PUT request
+    // Function to make a HTTP PUT request
     function updateUser() {
         const updateUser = {
             name: document.getElementById("username").value,
             email: document.getElementById("email").value,
             password: document.getElementById("password").value,
           };
-        const response = fetch('http://localhost:8000/api/users/', {
+        const response = fetch('http://localhost:8000/api/users/:name', {
             method: 'PUT',
             headers: {
                 'Content-type': 'application/json'
@@ -32,6 +36,7 @@ function deleteUser() {
             body: JSON.stringify(updateUser),
         });
         console.log("record updated");
+        alert( `User ${updateUser.name} updated.`);
     }
 
     // Make a HTTP POST request
@@ -49,14 +54,9 @@ function deleteUser() {
                 'Content-type': 'application/json'
             },
             body: JSON.stringify(newUser),
-        })
-    .then((response) => response.json())
-    .then((data) => {
-        console.log('Success:', data);
-    })
-    .catch((error) => {
-        console.error('Error:', error);
+        
 }); 
+
     }
 
     // Make a HTTP POST request
@@ -80,26 +80,22 @@ function deleteUser() {
             .catch((error) => {
                 console.error('Error:', error);
         }); 
+        alert( `New user ${newUser.name} created.`);
     }
 
-    // Make a HTTP GET request
+    // Make a HTTP POST request
     function logoutUser() {
-
+        const updateUser = {
+            name: document.getElementById("username").value,
+            email: document.getElementById("email").value,
+            password: document.getElementById("password").value,
+          };
         fetch('http://localhost:8000/api/users/logout', {
-            method: 'GET',
+            method: 'POST',
             headers: {
                 'Content-type': 'application/json'
-            }
+            },
+            body: JSON.stringify(updateUser),
         })
-            .then((response) => response.json())
-            .then((data) => {
-                console.log('Success:', data);
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-        }); 
+        alert( `User logged out.`);
     }
-
-
-
-    //export default  currentUser;

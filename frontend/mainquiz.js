@@ -1,13 +1,11 @@
-
-
-//import currentUser from './login.js'
-
+/**
+ * mainquiz.js consists of classes which provide the quiz funtionality including GET requests to display the scoreboard
+ * The functions are used in index.html
+ */
 
 class Settings {
 
   constructor() {
-    console.log(document.location.href);
-    console.log(document.cookie);
     this.quizElement = document.querySelector('.quiz');
     this.settingsElement = document.querySelector('.settings');
     this.category = document.querySelector('#category');
@@ -22,10 +20,6 @@ class Settings {
     this.quiz = { };
 
     this.startButton.addEventListener('click', this.startQuiz.bind(this));
-
-
-    //this.loginButton = document.querySelector('#username');
-    //this.startButton.addEventListener('click', alert("tststset"));
   }
 
    
@@ -190,21 +184,6 @@ class Question {
   }
 }
 
-
-/*
-function eventHandler(count, totalAmount, userid) {
-
-  const url = `http://localhost:8000/api/users/${userid}`;
-  this.fetch(url,{
-    method:'PUT',
-    headers:{
-    'Content-Type':'application/json'
-    },
-    body:JSON.stringify({  
-    score: count,
-    question: totalAmount})})
- }
-*/
 //----------------------------
 
 class Final {
@@ -216,20 +195,14 @@ class Final {
     this.againButton = document.querySelector('#again');
   
 
-
-
     this.render(count, totalAmount);
     this.againButton.addEventListener('click', location.reload.bind(location));
-    //this.againButton.addEventListener('click', eventHandler(count, totalAmount, userid));
+
+    
     this.fetchUsers();
-    this.fetchUserScore(count, totalAmount);
+    this.updateUserScore(count, totalAmount);
 
   }
-   
-
-
-
-  
 
   render(count, totalAmount) {
     this.scoreElement.innerHTML = `You answered ${count} out of ${totalAmount} correct!`;
@@ -242,27 +215,23 @@ class Final {
 
 
 
-async fetchUserScore(score, question ) {
-  try {
+async updateUserScore(score, question ) {
 
-    const url = `http://localhost:8000/api/users/`;
+    const url = `http://localhost:8000/api/users/currentuser`;
 
     let data = await this.fetchData(url);
-    console.log(data);
+    console.log("date" + data[0].username);
 
-    for (let i = 0; i < data.length; i++) {    
-      
-      if(data[i].username == currentUser){
-
-
-const updateUser = {
-      name: data[i].username,
-      question: parseInt(question) + parseInt(data[i].question),
-      score: parseInt(score) + parseInt(data[i].score),
+    const updateUser = {
+      name: data[0].username,
+      question: parseInt(question) + parseInt(data[0].question),
+      score: parseInt(score) + parseInt(data[0].score),
     };
-    console.log(updateUser);
+    console.log("user" + updateUser.name);
+    console.log("user" + updateUser.question);
+    console.log("user" + updateUser.score);
   
-  fetch('http://localhost:8000/api/users/scoreupdate/${currentUser}', {
+  fetch('http://localhost:8000/api/users/', {
       method: 'PUT',
       headers: {
           'Content-type': 'application/json'
@@ -270,19 +239,8 @@ const updateUser = {
       body: JSON.stringify(updateUser),
   });
 
-      } else {
-        //alert('no user');
-      }
-     }
-
- 
-  
-   
-  } catch (error) {
-    alert(error);
   }
-}
-
+     
 
   async fetchUsers() {
     try {
@@ -293,16 +251,17 @@ const updateUser = {
       console.log(data);
       for (let i = 0; i < data.length; i++) {        
         this.renderScoreboard(JSON.stringify(data[i].username), JSON.stringify(data[i].score), JSON.stringify(data[i].question));
-       } //        this.renderScoreboard(JSON.stringify(data[i].name).replace(/"([^"]+)":/g, '$1:'), JSON.stringify(data[i].score).replace(/"([^"]+)":/g, '$1:'), JSON.stringify(data[i].question).replace(/"([^"]+)":/g, '$1:'));
-
+       } 
     } catch (error) {
       alert(error);
     }
   }
 
-
+  //GET request
   async fetchData(url) {
-    const response = await fetch(url);
+    const response = await fetch(url, {
+      method: 'GET',
+    });
     const result = await response.json();
 
     return result;

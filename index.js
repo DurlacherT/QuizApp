@@ -1,34 +1,14 @@
 const express = require('express'); 
-const sessions = require('express-session');
 const app = express();              
 const port = 8000;                  
 const path = require('path');
 const cookieParser = require("cookie-parser");
-let users = require("./userdata");
-
-
-
-var session;    // a variable to save a session
-const oneDay = 1000 * 60 * 60 * 24;  // day in milliseconds
-
-
-app.use(sessions({
-    secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
-    saveUninitialized: true,
-    cookie: { maxAge: oneDay },
-    resave: false
-}));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use("/api/users", require("./routes/api/users")); //User routes
+app.use("/api/users", require("./routes/api/users")); 
 app.use(express.static(path.join(__dirname, 'frontend')));
-
-
-
-
-
 
 app.listen(port, (error) => {
   if (error) {
@@ -37,6 +17,3 @@ app.listen(port, (error) => {
       console.log(`Server listening at http://localhost:${port}`)
   }
 });
-
-
-module.exports = session;

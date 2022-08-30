@@ -1,4 +1,3 @@
 Scorboard aktualisiert eine Runde zu spät
 Bedingung, dass nur einzigartige Benutzernamen eingefügt werden können
-Session management
-Aktueller User verwenden um score zu aktualisieren
+login.html responsive machen

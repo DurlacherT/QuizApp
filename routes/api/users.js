@@ -1,10 +1,23 @@
+/**
+ * users.js consists routes that provid data from the server to the client/web browser
+ * The routes are exported to index.js
+ */
+
 const express = require("express");
 const router = express.Router();
-let users = require("../../userdata");
-var session;
 let con = require("../../mysqlconnection");
+//const session = require("../../index.js");
 
+const sessions = require('express-session');
+router.use(sessions({
+  secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
+  saveUninitialized: true,
+  cookie: { maxAge: 1000 * 60 * 60 * 24 },
+  resave: false
+}));
+var session;
 
+//Get user data --->
 router.get("/", (req, res) => {
   var sql = "SELECT * FROM accounts";
   con.query(sql, function (err, result) {
@@ -25,39 +38,19 @@ router.post("/", (req, res) => {
 router.put("/:name", (req, res) => {
   var sql = "UPDATE accounts SET email = '" + req.body.email + "', password = '" + req.body.password + "' WHERE username ='" + req.body.name + "'";
   con.query(sql, function (err, result) {
-/*
-  const found = users.some(user => user.id === parseInt(req.params.id));
-
-  if (found) {
-
-    const updateUser = req.body;
-    users.forEach(user => {
-
-      if (user.id === parseInt(req.params.id)) {
-        user.name = updateUser.name ? updateUser.name : user.name;
-        user.email = updateUser.email ? updateUser.email : user.email;
-        user.password = updateUser.password ? updateUser.password : user.password;
-        user.score = updateUser.score ? updateUser.score : user.score;
-        user.question = updateUser.question ? updateUser.question : user.question;
-        res.json({ msg: "User updated", user });
-        console.log(req.session);
-      }
-    });
-  } else {
-    res.sendStatus(400);
-  }*/
   })
 });
 
 //Update User
-router.put("/scoreupdate/:name", (req, res) => {
-  console.log(req);
+router.put('/', (req, res) => {
+  console.log("test");
 
   console.log(req.body.question);
 
   var sql = "UPDATE accounts SET score = '" + req.body.score + "', question = '" + req.body.question + "' WHERE username ='" + req.body.name + "'";
   con.query(sql, function (err, result) {
-
+    if (err) throw err;
+    res.json(result);
   })
 });
 
@@ -69,41 +62,10 @@ router.delete("/:name", (req, res) => {
   con.query(sql, function (err, result) {
     if (err) throw err;
 
-  if (true) {
-    users = users.filter(user => user.name !== req.params.name)
-    res.json({
-      msg: "User deleted",
-      users
-    });
 
-  } else {
-    res.sendStatus(400);
-  }
 
+  
   })
-
-/*
- var sql = "SELECT * FROM accounts";
-  con.query(sql, function (err, result) {
-    if (err) throw err;
-    let mypassword;
-    mypassword = false;
-    for (let i = 0; i < result.length; i++) {
-      if(result[i].email === req.body.email && result[i].password === req.body.password)
-       {mypassword = true;}
-      }
-    if(mypassword){
-      session=req.session;
-        session.userid=req.body.username;
-        console.log(req.session);
-        console.log(req.session.id);
-        console.log("Logged in");
-        //res.sendFile('frontend/index.html',{root:__dirname});
-    }
-    else{
-        console.log("Wrong username or password!");
-    }
-  });*/
  })
 
 //Authenticate user --->
@@ -119,10 +81,15 @@ router.post('/authenticate',(req,res) => {
       }
     if(mypassword){
       session=req.session;
-        session.userid=req.body.username;
-        console.log(req.session);
-        console.log(req.session.id);
+      session.userid=req.body.name;
+
+        console.log(session);
         console.log("Logged in");
+
+        var sql = "UPDATE accounts set sessionkey = '" + req.session.id + "' WHERE username ='" + req.body.name + "'";
+        con.query(sql, function (err, result) {
+          if (err) throw err;
+        });
         //res.sendFile('frontend/index.html',{root:__dirname});
     }
     else{
@@ -131,14 +98,33 @@ router.post('/authenticate',(req,res) => {
   });
  })
  
-router.get("/logout",(req,res) => {
+ 
+router.post('/logout',(req,res) => {
+  var sql = "UPDATE accounts set sessionkey = NULL WHERE username ='" + req.body.name + "'";
+  con.query(sql, function (err, result) {
+    if (err) throw err;
+  });
+  req.session.destroy((err) => {
+      if(err) {
+          return console.log(err);
+      }
+      res.redirect('/');
+  });
+  
+  console.log("req.session");
+  console.log(req.session);
   console.log(session);
+});
 
-  req.session.destroy();
-  console.log("Logged out!");
+
+
+
+router.get('/currentuser', (req, res) => {
   console.log(session);
-
-  res.redirect('/');
+  var sql = "SELECT * FROM accounts WHERE username ='" + session.userid + "'";
+  con.query(sql, function (err, result) {
+    if (err) throw err;
+    res.json(result);})
 });
 
 module.exports = router;
