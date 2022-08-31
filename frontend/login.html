@@ -1,41 +1,30 @@
-
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<title>Login Form Tutorial</title>
-		<link rel="stylesheet" href="mainquiz.css">
-		<link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
-	  
-	</head>
-
-	<body>
-
-		<div class="login-form">
-		<h1>Login Form</h1>
-			<form action="/login" method="POST">
-				<input type="text" name="username" id="username" placeholder="Username" required>
-				<input type="text" name="email" id="email" placeholder="E-Mail" required>
-				<input type="password" name="password" id="password" placeholder="Password" required>
-		</form>	
-
-		  <button onclick="loginUser()" type = "submit" class = "submit">Login</button>
-		  <button onclick="createUser()" type = "submit" class = "submit">Create new user</button>
-		  <button onclick="logoutUser()" type = "submit" class = "submit">Logout</button>
-		  <button onclick="deleteUser()" type = "submit" class = "submit">Delete</button>
-		  <button onclick="updateUser()" type = "submit" class = "submit">Update</button>
-		</div>
-		<div class="login-form">
-
-		<form action="http://localhost:8000/index.html">
-			<input  type="submit" class = "submit" value="Go to Game" />
-		</form>
-	</div>
-
-
-		<script  src="login.js"></script>
-	</body>
-
+   <head>
+      <meta charset="utf-8">
+      <title>Login Form</title>
+      <link rel="stylesheet" href="mainquiz.css">
+      <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
+   </head>
+   <body>
+      <div class="login-form">
+         <h1>Login Form</h1>
+         <form>
+            <input type="text" name="username" id="username" placeholder="Username" required>
+            <input type="text" name="email" id="email" placeholder="E-Mail" required>
+            <input type="password" name="password" id="password" placeholder="Password" required>
+         </form>
+         <button onclick="loginUser()" type = "submit" class = "submit">Login</button>
+         <button onclick="createUser()" type = "submit" class = "submit">Create new user</button>
+         <button onclick="logoutUser()" type = "submit" class = "submit">Logout</button>
+         <button onclick="deleteUser()" type = "submit" class = "submit">Delete</button>
+         <button onclick="updateUser()" type = "submit" class = "submit">Update</button>
+      </div>
+      <div class="login-form">
+         <form action="http://localhost:8000/index.html">
+            <input type="submit" class = "submit" value="Go to Game" />
+         </form>
+      </div>
+      <script src="login.js"></script>
+   </body>
 </html>
-
-
