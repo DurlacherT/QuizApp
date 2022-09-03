@@ -10,17 +10,16 @@
       <div class="login-form">
          <h1>Login Form</h1>
          <form>
-            <input type="text" name="username" id="username" placeholder="Username" required>
-            <input type="text" name="email" id="email" placeholder="E-Mail" required>
-            <input type="password" name="password" id="password" placeholder="Password" required>
+            <input type="text" name="username" id="username" placeholder="Username" required class = "input">
+            <input type="text" name="email" id="email" placeholder="E-Mail" required class = "input">
+            <input type="password" name="password" id="password" placeholder="Password" required class = "input">
          </form>
-         <button onclick="loginUser()" type = "submit" class = "submit">Login</button>
-         <button onclick="createUser()" type = "submit" class = "submit">Create new user</button>
-         <button onclick="logoutUser()" type = "submit" class = "submit">Logout</button>
-         <button onclick="deleteUser()" type = "submit" class = "submit">Delete</button>
-         <button onclick="updateUser()" type = "submit" class = "submit">Update</button>
-      </div>
-      <div class="login-form">
+         <button onclick="loginUser()" type = "submit" class = "submit">Login</button><br>
+         <button onclick="createUser()" type = "submit" class = "submit">Create new user</button><br>
+         <button onclick="logoutUser()" type = "submit" class = "submit">Logout</button><br>
+         <button onclick="deleteUser()" type = "submit" class = "submit">Delete</button><br>
+         <button onclick="updateUser()" type = "submit" class = "submit">Update</button><br>
+
          <form action="http://localhost:8000/index.html">
             <input type="submit" class = "submit" value="Go to Game" />
          </form>
