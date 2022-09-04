@@ -22,11 +22,32 @@
           const amount = this.getAmount();
           const categoryId = this.category.value;
           const difficulty = this.getCurrentDifficulty();
-          const url =
-              `https://opentdb.com/api.php?amount=${amount}&category=${categoryId}&difficulty=${difficulty}&type=multiple`;
-          let data = await this.fetchData(url);
+        const url1 =
+        `https://opentdb.com/api.php?amount=${amount}&category=${categoryId}&difficulty=${difficulty}&type=multiple`;
+        const url2 =
+        `https://the-trivia-api.com/api/questions?categories=film_and_tv&limit=${amount}&difficulty=${difficulty}`;
+        const url3 =
+        `https://api.api-ninjas.com/v1/trivia?category=enterainment`;
+        var result =  [2, 0][Math.floor(Math.random() * 2)];
+        let data;
+     
+        let type;
+          if (result==1) {
+        } else if (result==2) {
+            type=2
+            data = await this.fetchData(url2);
+        } else if (result==0){
+            type=0
+            data = await this.fetchData(url1);
+        }
           this.toggleVisibility();
-          this.quiz = new Quiz(this.quizElement, amount, data.results);
+          if (type==1) {
+          } else if (type==2) {
+            this.quiz = new Quiz(this.quizElement, amount, data, type);
+          } else if (type==0){
+            this.quiz = new Quiz(this.quizElement, amount, data.results, type);
+        }
+          
       } catch (error) {
           alert(error);
       }
@@ -59,7 +80,7 @@
 }
 //----------------------------
 class Quiz {
-  constructor(quizElement, amount, questions) {
+  constructor(quizElement, amount, questions, type) {
       this.quizElement = quizElement;
       this.currentElement = document.querySelector('.current');
       this.totalElement = document.querySelector('.total');
@@ -67,12 +88,12 @@ class Quiz {
       this.finalElement = document.querySelector('.final')
       this.totalAmount = amount;
       this.answeredAmount = 0;
-      this.questions = this.setQuestions(questions);
+      this.questions = this.setQuestions(questions, type);
       this.nextButton.addEventListener('click', this.nextQuestion.bind(this));
       this.renderQuestion();
   }
-  setQuestions(questions) {
-      return questions.map(question => new Question(question));
+  setQuestions(questions, type) {
+      return questions.map(question => new Question(question, type));
   }
   renderQuestion() {
       this.questions[this.answeredAmount].render();
@@ -113,21 +134,39 @@ class Quiz {
 }
 //----------------------------
 class Question {
-  constructor(question) {
-      this.questionElement = document.querySelector('#question');
-      this.answerElements = [
-    document.querySelector('#a1')
-    , document.querySelector('#a2')
-    , document.querySelector('#a3')
-    , document.querySelector('#a4')
-  , ];
-      this.correctAnswer = question.correct_answer;
-      this.question = question.question;
-      this.isCorrect = false;
-      this.answers = this.shuffleAnswers([
-    question.correct_answer
-    , ...question.incorrect_answers
-  ]);
+  constructor(question, type) {
+    if (type==1) {
+    } else if (type==2) {
+        alert('TriviaAPI')
+        this.questionElement = document.querySelector('#question');
+        this.answerElements = [
+      document.querySelector('#a1')
+      , document.querySelector('#a2')
+      , document.querySelector('#a3')
+    , ];
+        this.correctAnswer = question.correctAnswer;
+        this.question = question.question;
+        this.isCorrect = false;
+        this.answers = this.shuffleAnswers([
+      question.correctAnswer
+      , ...question.incorrectAnswers
+    ]);    } else {
+        this.questionElement = document.querySelector('#question');
+        this.answerElements = [
+      document.querySelector('#a1')
+      , document.querySelector('#a2')
+      , document.querySelector('#a3')
+      , document.querySelector('#a4')
+    , ];
+        this.correctAnswer = question.correct_answer;
+        this.question = question.question;
+        this.isCorrect = false;
+        this.answers = this.shuffleAnswers([
+      question.correct_answer
+      , ...question.incorrect_answers
+    ]);
+  }
+
   }
   shuffleAnswers(answers) {
       for (let i = answers.length - 1; i > 0; i--) {

@@ -51,13 +51,14 @@
      , };
      currentUser = document.getElementById("username")
          .value;
-     const response = fetch('http://localhost:8000/api/users/authenticate', {
+     fetch('http://localhost:8000/api/users/authenticate', {
          method: 'POST'
          , headers: {
              'Content-type': 'application/json'
          }
          , body: JSON.stringify(newUser)
-     , });
+      }).then(res => {
+        console.log("Request complete! response:", res);})
  }
  // Make a HTTP POST request
  function createUser() {
@@ -70,7 +71,7 @@
              .value
      , };
      fetch('http://localhost:8000/api/users/', {
-             method: 'POST'
+             method: 'PATCH'
              , headers: {
                  'Content-type': 'application/json'
              }
@@ -104,4 +105,11 @@
      , })
      alert(`User logged out.`);
  }
+
+ function setCookie() {
+    console.log(document.cookie)
+
+    document.session = "name=Alexander; expires=Sat, 20 Jan 1980 12:00:00 UTC";
+
+}
  

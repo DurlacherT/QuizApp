@@ -16,6 +16,8 @@
     --hover-color: #1c1e1f;
     --shadow-color:silver;
     --font-style: 'Questrial';
+    --font-size: 5px;
+
   }
 }
 @media  screen and (max-width: 400px) {
@@ -40,9 +42,16 @@
     align-items: center;
   }
   h2 {
-    font-size: 3.5rem;
+    font-size: 15px;
     text-align: center;
     color: var(--primary-color);
+  }
+  h3 {
+    display: block;
+    width: 390px;
+    font-size: 15px;
+    font-weight: 350;
+    word-wrap: break-word;
   }
 }
 body {
@@ -150,6 +159,7 @@ h2 {
   -moz-box-shadow: 10px 10px 3px -4px var(--shadow-color);
   box-shadow: 10px 10px 5px -4px var(--shadow-color);
 }
+
 h3 {
   display: block;
   width: 550px;
