@@ -1,14 +1,12 @@
 /**
  * users.js consists of routes that provide data of the server to the client/web browser
  * The routes are exported to server.js. We use get, put, post and delete route methods.
- * users.js also requires the express-session module which is used for session management
+ * 
  */
 //use express-session for session management
 const express = require("express");
-const session = require('../../mysqlconnection');
 const router = express.Router();
 let con = require("../../mysqlconnection");
-
 //Get user data --->
 router.get("/", (req, res) => {
     let sql = "SELECT * FROM accounts";
@@ -18,7 +16,7 @@ router.get("/", (req, res) => {
     })
 });
 //Create new user --->
-router.patch("/", (req, res) => {
+router.post("/", (req, res) => {
     let sql = "INSERT INTO accounts (username, password, email, question, score) VALUES ('" + req.body
         .name + "', '" + req.body.password + "', '" + req.body.email + "', '" + 0 + "' , '" + 0 +
         "')";
@@ -53,8 +51,7 @@ router.delete("/:name", (req, res) => {
 })
 //Authenticate user --->
 router.post('/authenticate', (req, res) => {
-    req.session.regenerate(function(err) {
-      });
+    //req.session.regenerate(function (err) {});
     var sql = "SELECT * FROM accounts";
     con.query(sql, function (err, result) {
         if (err) throw err;
@@ -70,7 +67,6 @@ router.post('/authenticate', (req, res) => {
             console.log(req.session);
             console.log("Logged in");
             console.log(JSON.stringify(req.cookies));
-
             var sql = "UPDATE accounts set sessionkey = '" + JSON.stringify(req.cookies) +
                 "' WHERE email ='" + req.body.email + "'";
             con.query(sql, function (err, result) {
@@ -94,31 +90,25 @@ router.post('/logout', (req, res) => {
 });
 //Get the current user --->
 router.get('/currentuser', (req, res) => {
-    console.log(typeof req.cookies);
     cookiestring = JSON.stringify(req.cookies);
-    if(cookiestring == ''){return}
+    if (cookiestring == '') {
+        return
+    }
     let sql = "SELECT username from accounts WHERE sessionkey ='" + cookiestring + "'";
     con.query(sql, function (err, result) {
         if (err) throw err;
-        console.log("currentuser2",result)
-        //if(result == ''){return}
-
-    if ((result) != '') {
-        let sql = "SELECT * FROM accounts WHERE username ='" + result[0].username + "'";
-        con.query(sql, function (err, result) {
-            if (err) throw err;
-            res.json(result);
-            if(result == ''){return}
-            console.log("currentuser2",result)
-        })
-    } else {
-        console.log('No user logged in.')
-    }
-
+        if ((result) != '') {
+            let sql = "SELECT * FROM accounts WHERE username ='" + result[0].username + "'";
+            con.query(sql, function (err, result) {
+                if (err) throw err;
+                res.json(result);
+                if (result == '') {
+                    return
+                }
+            })
+        } else {
+            console.log('No user logged in.')
+        }
     });
-
-
 });
-
-
 module.exports = router;

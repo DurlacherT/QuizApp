@@ -9,15 +9,14 @@
 }
 @media  screen and (max-width: 400px) {
   :root {
-    --primary-color: gray;
+    --primary-color: #00b9f7;
     --secondary-color: rgb(255, 255, 255);
-    --tertiary-color: darkred;
+    --tertiary-color: #c1c6c8;
     --quaternary-color: #1f1c22;
     --hover-color: #1c1e1f;
     --shadow-color:silver;
     --font-style: 'Questrial';
     --font-size: 5px;
-
   }
 }
 @media  screen and (max-width: 400px) {
@@ -79,7 +78,6 @@ h2 {
   justify-content: center;
 }
 .settings {
-
   z-index: 1;
 }
 .final {
@@ -174,7 +172,6 @@ h3 {
   font-family: var(--font-style), 'Ranchers', cursive;
   outline: none;
   border: none;
-  
   font-size: 1.8rem;
   margin-top: 10px;
   letter-spacing: 2px;

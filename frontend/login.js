@@ -2,8 +2,8 @@
  * login.js declares functions which make DELETE, PUT, POST requests (GET is used in mainquiz.js)
  * The functions are called in login.html
  */
- let currentUser = 'Anonymous'
- // Function to make a HTTP DELETE request
+
+// Function to make a HTTP DELETE request
  function deleteUser() {
      const deleteUser = {
          name: document.getElementById("username")
@@ -49,8 +49,6 @@
          , password: document.getElementById("password")
              .value
      , };
-     currentUser = document.getElementById("username")
-         .value;
      fetch('http://localhost:8000/api/users/authenticate', {
          method: 'POST'
          , headers: {
@@ -60,7 +58,7 @@
       }).then(res => {
         console.log("Request complete! response:", res);})
  }
- // Make a HTTP POST request
+ // Make a HTTP PATCH request
  function createUser() {
      const newUser = {
          name: document.getElementById("username")
@@ -71,7 +69,7 @@
              .value
      , };
      fetch('http://localhost:8000/api/users/', {
-             method: 'PATCH'
+             method: 'POST'
              , headers: {
                  'Content-type': 'application/json'
              }
@@ -105,11 +103,7 @@
      , })
      alert(`User logged out.`);
  }
-
  function setCookie() {
     console.log(document.cookie)
-
-    document.session = "name=Alexander; expires=Sat, 20 Jan 1980 12:00:00 UTC";
-
+    document.session = "name=session; expires=Sat, 20 Jan 1980 12:00:00 UTC";
 }
- 
