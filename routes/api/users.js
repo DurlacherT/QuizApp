@@ -50,7 +50,7 @@ router.delete("/:name", (req, res) => {
     })
 })
 //Authenticate user --->
-router.post('/authenticate', (req, res) => {
+router.patch('/authenticate', (req, res) => {
     //req.session.regenerate(function (err) {});
     var sql = "SELECT * FROM accounts";
     con.query(sql, function (err, result) {

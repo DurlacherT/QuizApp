@@ -39,7 +39,7 @@
      console.log("record updated");
      alert(`User ${updateUser.name} updated.`);
  }
- // Make a HTTP POST request
+ // Make a HTTP PATCH request
  function loginUser() {
      const newUser = {
          name: document.getElementById("username")
@@ -50,7 +50,7 @@
              .value
      , };
      fetch('http://localhost:8000/api/users/authenticate', {
-         method: 'POST'
+         method: 'PATCH'
          , headers: {
              'Content-type': 'application/json'
          }
@@ -58,7 +58,7 @@
       }).then(res => {
         console.log("Request complete! response:", res);})
  }
- // Make a HTTP PATCH request
+ // Make a HTTP POST request
  function createUser() {
      const newUser = {
          name: document.getElementById("username")
