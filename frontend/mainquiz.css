@@ -1,7 +1,7 @@
 :root {
-  --primary-color: #00b9f7;
+  --primary-color: #3da2c3;
   --secondary-color: rgb(255, 255, 255);
-  --tertiary-color: #c1c6c8;
+  --tertiary-color: #214350;
   --quaternary-color: #1f1c22;
   --hover-color: #1c1e1f;
   --shadow-color:silver;
@@ -23,22 +23,22 @@
   body {
     font-family: Questrial;
     background-color: var(--secondary-color);
-    width: 100vw;
-    height: 100vh;
+    width: 70%;
+    height: 70%;
     justify-content: center;
     align-items: center;
     color: rgb(255, 255, 255);
   }
   .quiz, .settings, .final {
     padding: 0px 35px 35px 35px;
-    margin-left: 250px;
-    margin-right: 0px;
     background-color: var(--tertiary-color);
     -webkit-box-shadow: 10px 10px 3px -4px var(--shadow-color);
     -moz-box-shadow: 10px 10px 3px -4px var(--shadow-color);
     box-shadow: 10px 10px 5px -4px var(--shadow-color);
-    align-content: stretch;
+    align-content: center;
     align-items: center;
+    width: 70%;
+    height: 70%;
   }
   h2 {
     font-size: 15px;
@@ -47,7 +47,6 @@
   }
   h3 {
     display: block;
-    width: 390px;
     font-size: 15px;
     font-weight: 350;
     word-wrap: break-word;
@@ -56,8 +55,8 @@
 body {
   font-family: Questrial;
   background-color: var(--secondary-color);
-  width: 100vw;
-  height: 100vh;
+  width: 70%;
+  height: 70%;
   justify-content: center;
   align-items: center;
   color: rgb(255, 255, 255);
@@ -160,7 +159,6 @@ h2 {
 
 h3 {
   display: block;
-  width: 550px;
   font-size: 35px;
   font-weight: 350;
   word-wrap: break-word;
