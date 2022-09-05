@@ -21,6 +21,7 @@
 }
 @media  screen and (max-width: 400px) {
   body {
+    margin: 15%;
     font-family: Questrial;
     background-color: var(--secondary-color);
     width: 70%;
@@ -53,6 +54,7 @@
   }
 }
 body {
+  margin: 15%;
   font-family: Questrial;
   background-color: var(--secondary-color);
   width: 70%;
@@ -73,8 +75,9 @@ h2 {
   padding: 15px;
 }
 .main {
-  display: flex;
   justify-content: center;
+  display: flex;
+align-items: center;
 }
 .settings {
   z-index: 1;
